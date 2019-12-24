@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.26124.0
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Domain", "Domain\Domain.fsproj", "{4CFA1F21-4505-4833-A98D-8883A9593A44}"
 EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Domain.Test", "Domain.Test\Domain.Test.fsproj", "{FAEBA869-B80D-4FE1-A0E1-84188269C393}"
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "DomainTest", "DomainTest\DomainTest.fsproj", "{FAEBA869-B80D-4FE1-A0E1-84188269C393}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
