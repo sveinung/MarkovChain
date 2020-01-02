@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="ModelCalculatorTest.fs" />
+    <Compile Include="**/*.fs" />
   </ItemGroup>
 
   <ItemGroup>
