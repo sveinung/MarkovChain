@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="**/*.fs" />
+    <Compile Include="SetningTest.fs" />
   </ItemGroup>
 
   <ItemGroup>
