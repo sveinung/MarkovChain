@@ -14,7 +14,7 @@ module MarkovModell =
         endPoint: EndPoint;
     }
 
-    let rec createHelper (previousState: string) (sentences: list<string>) =
+    let rec toTransitionsHelper (previousState: string) (sentences: list<string>) =
         match sentences with
         | [] ->
             [{ startPoint = StartState(previousState); endPoint = End }]
@@ -23,11 +23,18 @@ module MarkovModell =
             :: [{ startPoint = StartState(head); endPoint = End }]
         | head :: tail ->
             { startPoint = StartState(previousState); endPoint = EndState(head) }
-            :: createHelper head tail
+            :: toTransitionsHelper head tail
 
-    let public create (sentences: list<string>) =
-        match sentences with
+    let toTransitionsFromSingleChain (sentence: list<string>) =
+        match sentence with
         | [] -> []
         | head :: tail ->
             { startPoint = Start; endPoint = EndState(head) }
-            :: createHelper head tail
+            :: toTransitionsHelper head tail
+
+    let public toTransitions (sentences: list<list<string>>) =
+        sentences
+            |> List.map toTransitionsFromSingleChain
+            |> Seq.concat
+            |> List.ofSeq
+            |> List.distinct
