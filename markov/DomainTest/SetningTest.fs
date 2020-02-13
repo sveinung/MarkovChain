@@ -1,4 +1,4 @@
-module DomainTest
+module DomainTest.SetningTest
 
 open NUnit.Framework
 
