@@ -1,6 +1,6 @@
 namespace Domain
 
-module MarkovModell =
+module Transitions =
     type StartPoint<'T> =
         | StartState of value : 'T
         | Start

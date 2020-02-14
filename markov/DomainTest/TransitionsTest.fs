@@ -3,11 +3,11 @@ module DomainTest.MarkovModellTest
 open NUnit.Framework
 
 open Domain
-open Domain.MarkovModell
+open Domain.Transitions
 
 [<Test>]
 let ``One state``() =
-    let modell = MarkovModell.toTransitions [[ "1" ]]
+    let modell = Transitions.toTransitions [[ "1" ]]
     Assert.That(modell, Is.EquivalentTo([
         { startPoint = Start;
           endPoint = EndState("1") };
@@ -18,7 +18,7 @@ let ``One state``() =
 
 [<Test>]
 let ``Three states``() =
-    let modell = MarkovModell.toTransitions [["1"; "2"; "3"]]
+    let modell = Transitions.toTransitions [["1"; "2"; "3"]]
     Assert.That (modell, Is.EquivalentTo [
         { startPoint = Start;
           endPoint = EndState("1") };
@@ -35,7 +35,7 @@ let ``Three states``() =
 
 [<Test>]
 let ``Two chains without overlap``() =
-    let modell = MarkovModell.toTransitions [["1"; "2"]; ["3"; "4"]]
+    let modell = Transitions.toTransitions [["1"; "2"]; ["3"; "4"]]
     Assert.That (modell, Is.EquivalentTo [
         { startPoint = Start;
           endPoint = EndState("1") };
@@ -58,7 +58,7 @@ let ``Two chains without overlap``() =
 
 [<Test>]
 let ``One chain branching into two``() =
-    let modell = MarkovModell.toTransitions [["1"; "2"]; ["1"; "3"]]
+    let modell = Transitions.toTransitions [["1"; "2"]; ["1"; "3"]]
     Assert.That (modell, Is.EquivalentTo [
         { startPoint = Start;
           endPoint = EndState("1") };
