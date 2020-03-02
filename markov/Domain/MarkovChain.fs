@@ -36,7 +36,7 @@ let rec nextStateHelper (transitions: list<Transition>, randomValue: double, sta
 let nextState (transitions: list<Transition>, randomValue: double): EndStateValue =
     nextStateHelper (transitions, randomValue, 0.0)
 
-let rec public generate2(chain: MarkovChain, randomNumbers: List<double>, currentState: State): list<string> =
+let rec generateHelper(chain: MarkovChain, randomNumbers: List<double>, currentState: State): list<string> =
     match randomNumbers with
     | [] -> []
     | head :: [] ->
@@ -49,10 +49,10 @@ let rec public generate2(chain: MarkovChain, randomNumbers: List<double>, curren
         match next with
         | End -> []
         | State value ->
-            value :: generate2 (chain, tail, chain.Item (StartStateValue.State value))
+            value :: generateHelper (chain, tail, chain.Item (StartStateValue.State value))
 
 let public generate(chain: MarkovChain, times: int): list<string> =
     let random = new Random()
     let randomNumbers: List<double> = [ for _ in 1..times -> double (random.Next(0, 100)) / 100.0 ]
     let startState = chain.Item Start
-    generate2 (chain, randomNumbers, startState)
+    generateHelper (chain, randomNumbers, startState)

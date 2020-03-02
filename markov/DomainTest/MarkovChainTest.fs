@@ -35,7 +35,7 @@ let Test() =
         }
     let chain = Map.empty.Add(s0.state, s0).Add(s1.state, s1).Add(s2.state, s2)
   
-    let results = MarkovChain.generate2 (chain, [0.7; 0.3; 0.8], s0)
+    let results = MarkovChain.generateHelper (chain, [0.7; 0.3; 0.8], s0)
 
     Assert.That(results, Is.EquivalentTo ["1"; "2"])
 
