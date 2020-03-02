@@ -1,20 +1,20 @@
 namespace Domain
 
 module Transitions =
-    type StartPoint<'T> =
-        | StartState of value : 'T
+    type StartPoint =
+        | StartState of value : string
         | Start
 
-    type EndPoint<'T> =
-        | EndState of value : 'T
+    type EndPoint =
+        | EndState of value : string
         | End
 
     type Transision<'T> = {
-        startPoint: StartPoint<'T>;
-        endPoint: EndPoint<'T>;
+        startPoint: StartPoint;
+        endPoint: EndPoint;
     }
 
-    let rec toTransitionsHelper<'T> (previousState: 'T) (sentences: list<'T>) =
+    let rec toTransitionsHelper (previousState: string) (sentences: list<string>) =
         match sentences with
         | [] ->
             [{ startPoint = StartState(previousState); endPoint = End }]
@@ -25,14 +25,14 @@ module Transitions =
             { startPoint = StartState(previousState); endPoint = EndState(head) }
             :: toTransitionsHelper head tail
 
-    let toTransitionsFromSingleChain (sentence: list<'T>) =
+    let toTransitionsFromSingleChain (sentence: list<string>) =
         match sentence with
         | [] -> []
         | head :: tail ->
             { startPoint = Start; endPoint = EndState(head) }
             :: toTransitionsHelper head tail
 
-    let public toTransitions (sentences: list<list<'T>>) =
+    let public toTransitions (sentences: list<list<string>>) =
         sentences
             |> List.map toTransitionsFromSingleChain
             |> Seq.concat
