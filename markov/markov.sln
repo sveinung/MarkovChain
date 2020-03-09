@@ -7,6 +7,8 @@ Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Domain", "Domain\Domain.fsp
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "DomainTest", "DomainTest\DomainTest.fsproj", "{FAEBA869-B80D-4FE1-A0E1-84188269C393}"
 EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Main", "Main\Main.fsproj", "{1EEA5F7F-FA0A-42D7-B116-77DE0EA04811}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -44,5 +46,17 @@ Global
 		{FAEBA869-B80D-4FE1-A0E1-84188269C393}.Release|x64.Build.0 = Release|Any CPU
 		{FAEBA869-B80D-4FE1-A0E1-84188269C393}.Release|x86.ActiveCfg = Release|Any CPU
 		{FAEBA869-B80D-4FE1-A0E1-84188269C393}.Release|x86.Build.0 = Release|Any CPU
+		{1EEA5F7F-FA0A-42D7-B116-77DE0EA04811}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1EEA5F7F-FA0A-42D7-B116-77DE0EA04811}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1EEA5F7F-FA0A-42D7-B116-77DE0EA04811}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{1EEA5F7F-FA0A-42D7-B116-77DE0EA04811}.Debug|x64.Build.0 = Debug|Any CPU
+		{1EEA5F7F-FA0A-42D7-B116-77DE0EA04811}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{1EEA5F7F-FA0A-42D7-B116-77DE0EA04811}.Debug|x86.Build.0 = Debug|Any CPU
+		{1EEA5F7F-FA0A-42D7-B116-77DE0EA04811}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1EEA5F7F-FA0A-42D7-B116-77DE0EA04811}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1EEA5F7F-FA0A-42D7-B116-77DE0EA04811}.Release|x64.ActiveCfg = Release|Any CPU
+		{1EEA5F7F-FA0A-42D7-B116-77DE0EA04811}.Release|x64.Build.0 = Release|Any CPU
+		{1EEA5F7F-FA0A-42D7-B116-77DE0EA04811}.Release|x86.ActiveCfg = Release|Any CPU
+		{1EEA5F7F-FA0A-42D7-B116-77DE0EA04811}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

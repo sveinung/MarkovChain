@@ -17,12 +17,12 @@ type Transition = {
 
 type State = {
     state: StartStateValue;
-    transitions: list<Transition>;
+    transitions: Transition list;
 }
 
 type MarkovChain = Map<StartStateValue, State>
 
-let rec nextStateHelper (transitions: list<Transition>, randomValue: double, startOfInterval: double): EndStateValue =
+let rec nextStateHelper (transitions: Transition list, randomValue: double, startOfInterval: double): EndStateValue =
     match transitions with
     | [] -> failwith "Cannot be empty"
     | head :: [] -> head.endState
@@ -33,10 +33,10 @@ let rec nextStateHelper (transitions: list<Transition>, randomValue: double, sta
         else
             nextStateHelper (tail, randomValue, endOfInterval)
 
-let nextState (transitions: list<Transition>, randomValue: double): EndStateValue =
+let nextState (transitions: Transition list, randomValue: double): EndStateValue =
     nextStateHelper (transitions, randomValue, 0.0)
 
-let rec generateHelper(chain: MarkovChain, randomNumbers: List<double>, currentState: State): list<string> =
+let rec generateHelper(chain: MarkovChain, randomNumbers: double list, currentState: State): string list =
     match randomNumbers with
     | [] -> []
     | head :: [] ->
@@ -51,7 +51,7 @@ let rec generateHelper(chain: MarkovChain, randomNumbers: List<double>, currentS
         | State value ->
             value :: generateHelper (chain, tail, chain.Item (StartStateValue.State value))
 
-let public generate(chain: MarkovChain, times: int): list<string> =
+let public generate(chain: MarkovChain, times: int): string list =
     let random = new Random()
     let randomNumbers: List<double> = [ for _ in 1..times -> double (random.Next(0, 100)) / 100.0 ]
     let startState = chain.Item Start

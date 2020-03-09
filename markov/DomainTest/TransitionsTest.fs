@@ -75,3 +75,29 @@ let ``One chain branching into two``() =
         { startPoint = StartState("3");
           endPoint = End };
     ])
+
+[<Test>]
+let ``Chain with one state``() =
+    let markovChain = Transitions.toMarkovChain [
+        { startPoint = Start;
+            endPoint = EndState("1") };
+        { startPoint = Start;
+            endPoint = EndState("2") };
+        { startPoint = StartState("1");
+            endPoint = EndState("2") };
+    ]
+    let start = markovChain.Item MarkovChain.Start
+    Assert.That (start.transitions, Is.EquivalentTo [
+      { MarkovChain.Transition.probability = 0.5;
+        MarkovChain.Transition.endState = MarkovChain.EndStateValue.State "1";
+      };
+      { MarkovChain.Transition.probability = 0.5;
+        MarkovChain.Transition.endState = MarkovChain.EndStateValue.State "2";
+      }
+    ])
+    let state1 = markovChain.Item (MarkovChain.StartStateValue.State "1")
+    Assert.That (state1.transitions, Is.EquivalentTo [
+      { MarkovChain.Transition.probability = 1.0;
+        MarkovChain.Transition.endState = MarkovChain.EndStateValue.State "2";
+      }
+    ])

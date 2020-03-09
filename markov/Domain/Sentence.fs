@@ -10,7 +10,7 @@ module Sentence =
     let notEmpty (sentence: list<string>) =
         not (sentence.Equals([""]))
 
-    let public parse (text: string) =
+    let public parse (text: string): List<List<string>> =
         let sentences = text.Split [| '.' |]
         let result =
             sentences
