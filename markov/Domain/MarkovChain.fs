@@ -22,18 +22,17 @@ type State = {
 
 type MarkovChain = Map<StartStateValue, State>
 
-let rec nextStateHelper (transitions: Transition list, randomValue: double, startOfInterval: double): EndStateValue =
-    match transitions with
-    | [] -> failwith "Cannot be empty"
-    | head :: [] -> head.endState
-    | head :: tail ->
-        let endOfInterval = startOfInterval + (head.probability)
-        if startOfInterval <= randomValue && randomValue < endOfInterval then
-            head.endState
-        else
-            nextStateHelper (tail, randomValue, endOfInterval)
-
 let nextState (transitions: Transition list, randomValue: double): EndStateValue =
+    let rec nextStateHelper (transitions: Transition list, randomValue: double, startOfInterval: double): EndStateValue =
+        match transitions with
+        | [] -> failwith "Cannot be empty"
+        | head :: [] -> head.endState
+        | head :: tail ->
+            let endOfInterval = startOfInterval + (head.probability)
+            if startOfInterval <= randomValue && randomValue < endOfInterval then
+                head.endState
+            else
+                nextStateHelper (tail, randomValue, endOfInterval)
     nextStateHelper (transitions, randomValue, 0.0)
 
 let rec generateHelper(chain: MarkovChain, randomNumbers: double list, currentState: State): string list =

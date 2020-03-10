@@ -4,15 +4,16 @@ open NUnit.Framework
 
 open Domain
 open Domain.Transitions
+open Domain.MarkovChain
 
 [<Test>]
 let ``One state``() =
     let modell = Transitions.toTransitions [[ "1" ]]
     Assert.That(modell, Is.EquivalentTo([
         { startPoint = Start;
-          endPoint = EndState("1") };
+          endPoint = EndStateValue.State("1") };
 
-        { startPoint = StartState("1");
+        { startPoint = StartStateValue.State("1");
           endPoint = End };
     ]))
 
@@ -21,15 +22,15 @@ let ``Three states``() =
     let modell = Transitions.toTransitions [["1"; "2"; "3"]]
     Assert.That (modell, Is.EquivalentTo [
         { startPoint = Start;
-          endPoint = EndState("1") };
+          endPoint = EndStateValue.State("1") };
 
-        { startPoint = StartState("1");
-          endPoint = EndState("2") };
+        { startPoint = StartStateValue.State("1");
+          endPoint = EndStateValue.State("2") };
 
-        { startPoint = StartState("2");
-          endPoint = EndState("3") };
+        { startPoint = StartStateValue.State("2");
+          endPoint = EndStateValue.State("3") };
 
-        { startPoint = StartState("3");
+        { startPoint = StartStateValue.State("3");
           endPoint = End };
     ])
 
@@ -38,21 +39,21 @@ let ``Two chains without overlap``() =
     let modell = Transitions.toTransitions [["1"; "2"]; ["3"; "4"]]
     Assert.That (modell, Is.EquivalentTo [
         { startPoint = Start;
-          endPoint = EndState("1") };
+          endPoint = EndStateValue.State("1") };
 
-        { startPoint = StartState("1");
-          endPoint = EndState("2") };
+        { startPoint = StartStateValue.State("1");
+          endPoint = EndStateValue.State("2") };
         
-        { startPoint = StartState("2");
+        { startPoint = StartStateValue.State("2");
           endPoint = End };
         
         { startPoint = Start;
-          endPoint = EndState("3") };
+          endPoint = EndStateValue.State("3") };
 
-        { startPoint = StartState("3");
-          endPoint = EndState("4") };
+        { startPoint = StartStateValue.State("3");
+          endPoint = EndStateValue.State("4") };
 
-        { startPoint = StartState("4");
+        { startPoint = StartStateValue.State("4");
           endPoint = End };
     ])
 
@@ -61,18 +62,18 @@ let ``One chain branching into two``() =
     let modell = Transitions.toTransitions [["1"; "2"]; ["1"; "3"]]
     Assert.That (modell, Is.EquivalentTo [
         { startPoint = Start;
-          endPoint = EndState("1") };
+          endPoint = EndStateValue.State("1") };
 
-        { startPoint = StartState("1");
-          endPoint = EndState("2") };
+        { startPoint = StartStateValue.State("1");
+          endPoint = EndStateValue.State("2") };
 
-        { startPoint = StartState("2");
+        { startPoint = StartStateValue.State("2");
           endPoint = End };
 
-        { startPoint = StartState("1");
-          endPoint = EndState("3") };
+        { startPoint = StartStateValue.State("1");
+          endPoint = EndStateValue.State("3") };
 
-        { startPoint = StartState("3");
+        { startPoint = StartStateValue.State("3");
           endPoint = End };
     ])
 
@@ -80,11 +81,11 @@ let ``One chain branching into two``() =
 let ``Chain with one state``() =
     let markovChain = Transitions.toMarkovChain [
         { startPoint = Start;
-            endPoint = EndState("1") };
+            endPoint = EndStateValue.State("1") };
         { startPoint = Start;
-            endPoint = EndState("2") };
-        { startPoint = StartState("1");
-            endPoint = EndState("2") };
+            endPoint = EndStateValue.State("2") };
+        { startPoint = StartStateValue.State("1");
+            endPoint = EndStateValue.State("2") };
     ]
     let start = markovChain.Item MarkovChain.Start
     Assert.That (start.transitions, Is.EquivalentTo [
