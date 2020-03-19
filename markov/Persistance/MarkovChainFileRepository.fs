@@ -9,7 +9,7 @@ type TransitionDto = {
     EndState: string;
 }
 
-let toJson (markovChain: MarkovChain) =
+let toJson (markovChain: MarkovChain): string =
     let mapTransition (transition: Transition): TransitionDto =
         let endStateString =
             match transition.endState with
