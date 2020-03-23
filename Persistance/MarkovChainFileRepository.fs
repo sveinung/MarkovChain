@@ -31,10 +31,8 @@ let toJson (markovChain: MarkovChain): string =
 
         (stateString, transitionsJson)
 
-    let dto =
-        markovChain
-            |> Map.toList
-            |> List.map mapState
-            |> Map.ofList
-
-    JsonConvert.SerializeObject dto
+    markovChain
+        |> Map.toList
+        |> List.map mapState
+        |> Map.ofList
+        |> JsonConvert.SerializeObject
