@@ -17,7 +17,8 @@ let toJson (markovChain: MarkovChain): string =
             | EndStateValue.State value -> value
 
         { Probability = transition.probability;
-          EndState = endStateString}
+          EndState = endStateString
+          }
 
     let mapState ((_, state): StartStateValue * State): string * TransitionDto list =
         let stateString =
@@ -36,3 +37,36 @@ let toJson (markovChain: MarkovChain): string =
         |> List.map mapState
         |> Map.ofList
         |> JsonConvert.SerializeObject
+
+let fromJson (json: string): MarkovChain =
+    let mapTransition (transition: TransitionDto): Transition =
+        let endState =
+            match transition.EndState with
+            | "__END__" -> End
+            | value -> EndStateValue.State value
+
+        { probability = transition.Probability;
+          endState = endState
+          }
+
+    let mapFromJson ((stateString, transitionsDto): string * TransitionDto list): StartStateValue * State =
+        let stateKey =
+            match stateString with
+            | "__START__" -> Start
+            | value -> StartStateValue.State value
+
+        let transitions =
+            transitionsDto
+                |> List.map mapTransition
+
+        let state =
+            { state = stateKey;
+              transitions = transitions;
+              }
+
+        (stateKey, state)
+
+    JsonConvert.DeserializeObject<Map<string, TransitionDto list>>(json)
+        |> Map.toList
+        |> List.map mapFromJson
+        |> Map.ofList
