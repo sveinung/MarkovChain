@@ -50,7 +50,7 @@ let rec generateHelper(chain: MarkovChain, randomNumbers: double list, currentSt
         | State value ->
             value :: generateHelper (chain, tail, chain.Item (StartStateValue.State value))
 
-let public generate(chain: MarkovChain, times: int): string list =
+let public generate (times: int) (chain: MarkovChain): string list =
     let random = new Random()
     let randomNumbers: List<double> = [ for _ in 1..times -> double (random.Next(0, 100)) / 100.0 ]
     let startState = chain.Item Start

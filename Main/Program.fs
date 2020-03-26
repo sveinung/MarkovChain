@@ -24,13 +24,27 @@ let createModel (sourceFilePath: string): unit =
         |> save
     ()
 
+let generate (modelFilePath: string) (times: int): unit =
+    let printState (state: string) =
+        printf "%s " state
+
+    File.ReadAllText modelFilePath
+        |> MarkovChainFileRepository.fromJson
+        |> MarkovChain.generate times
+        |> List.iter printState
+    ()
+
 [<EntryPoint>]
 let main args =
     match args with
     | [|"create-model" ; sourceFilePath |] ->
         createModel sourceFilePath
-        0
+
+    | [|"generate" ; sourceFilePath ; times |] ->
+        generate sourceFilePath (int times)
+
     | _ ->
         Console.WriteLine ("Usage:
             create-model <text file>")
-        0
+
+    0
