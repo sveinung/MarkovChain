@@ -35,7 +35,7 @@ let Test() =
         }
     let chain = Map.empty.Add(s0.state, s0).Add(s1.state, s1).Add(s2.state, s2)
   
-    let results = MarkovChain.generateHelper (chain, [0.7; 0.3; 0.8], s0)
+    let results = MarkovChainService.generateHelper (chain, [0.7; 0.3; 0.8], s0)
 
     Assert.That(results, Is.EquivalentTo ["1"; "2"])
 
@@ -49,7 +49,7 @@ let Should_select_the_first() =
         { probability = 0.5;
           endState = EndStateValue.State("3") }
     ]
-    let result = MarkovChain.nextState (values, 0.1)
+    let result = MarkovChainService.nextState (values, 0.1)
     
     Assert.That(result, Is.EqualTo(EndStateValue.State("1")))
 
@@ -63,7 +63,7 @@ let Should_select_the_second() =
         { probability = 0.5;
           endState = EndStateValue.State("3") }
     ]
-    let result = MarkovChain.nextState (values, 0.4)
+    let result = MarkovChainService.nextState (values, 0.4)
     
     Assert.That(result, Is.EqualTo(EndStateValue.State("2")))
 
@@ -77,6 +77,6 @@ let Should_select_the_third() =
         { probability = 0.5;
           endState = EndStateValue.State("3") }
     ]
-    let result = MarkovChain.nextState (values, 0.6)
+    let result = MarkovChainService.nextState (values, 0.6)
     
     Assert.That(result, Is.EqualTo(EndStateValue.State("3")))

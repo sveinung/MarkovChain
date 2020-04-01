@@ -6,8 +6,9 @@
 
   <ItemGroup>
     <Compile Include="MarkovChain.fs" />
-    <Compile Include="Analysis\Sentence.fs" />
-    <Compile Include="Analysis\Analyser.fs" />
+    <Compile Include="Sentence.fs" />
+    <Compile Include="Analyser.fs" />
+    <Compile Include="MarkovChainService.fs" />
   </ItemGroup>
 
 </Project>

@@ -31,7 +31,7 @@ let generate (modelFilePath: string) (times: int): unit =
 
     File.ReadAllText modelFilePath
         |> MarkovChainFileRepository.fromJson
-        |> MarkovChain.generate times
+        |> MarkovChainService.generate times
         |> List.iter printState
     ()
 
