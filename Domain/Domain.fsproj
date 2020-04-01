@@ -5,7 +5,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="*.fs" />
+    <Compile Include="MarkovChain.fs" />
+    <Compile Include="Analysis\Sentence.fs" />
+    <Compile Include="Analysis\Analyser.fs" />
   </ItemGroup>
 
 </Project>

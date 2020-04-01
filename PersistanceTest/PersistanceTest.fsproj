@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <Compile Include="MarkovChainFileRepositoryTest.fs" />
+    <Compile Include="Program.fs" />
   </ItemGroup>
 
   <ItemGroup>

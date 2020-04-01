@@ -15,7 +15,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="*.fs" />
+    <Compile Include="MarkovChainTest.fs" />
+    <Compile Include="Analysis\*.fs" />
+    <Compile Include="Program.fs" />
   </ItemGroup>
 
   <ItemGroup>

@@ -2,7 +2,7 @@ module DomainTest.SetningTest
 
 open NUnit.Framework
 
-open Domain
+open Domain.Analysis
 
 [<Test>]
 let Parsing_list_of_sentences() =

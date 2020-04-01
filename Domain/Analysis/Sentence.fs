@@ -1,4 +1,4 @@
-namespace Domain
+namespace Domain.Analysis
 
 module Sentence =
     let public parse (text: string): List<List<string>> =

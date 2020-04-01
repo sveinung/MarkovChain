@@ -2,10 +2,11 @@
 open System.IO
 
 open Domain
-open Domain.Transitions
+open Domain.Analysis
+open Domain.Analysis.Analyser
 
 let createModel (sourceFilePath: string): unit =
-    let concatTransitions (acc: Transition list) (elem: Transition list): Transition list =
+    let concatTransitions (acc: AnalysedTransition list) (elem: AnalysedTransition list): AnalysedTransition list =
         acc @ elem
 
     let save json =
@@ -16,10 +17,10 @@ let createModel (sourceFilePath: string): unit =
     printfn "Creating model from %s ..." sourceFilePath
     File.ReadLines sourceFilePath
         |> Seq.map Sentence.parse
-        |> Seq.map Transitions.toTransitions
+        |> Seq.map Analyser.toTransitions
         |> List.ofSeq
-        |> List.fold concatTransitions List.empty<Transition>
-        |> Transitions.toMarkovChain
+        |> List.fold concatTransitions List.empty<AnalysedTransition>
+        |> Analyser.toMarkovChain
         |> MarkovChainFileRepository.toJson
         |> save
     ()
