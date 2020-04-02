@@ -5,7 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="MarkovChainFileRepository.fs" />
+    <Compile Include="Mapper.fs" />
+    <Compile Include="FileRepository.fs" />
   </ItemGroup>
 
   <ItemGroup>

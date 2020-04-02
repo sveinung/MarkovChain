@@ -9,7 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="MarkovChainFileRepositoryTest.fs" />
+    <Compile Include="MapperTest.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
 
