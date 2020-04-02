@@ -2,13 +2,8 @@
 open System.IO
 
 open Domain
-open Domain.Analysis
-open Domain.Analysis.Analyser
 
 let createModel (sourceFilePath: string): unit =
-    let concatTransitions (acc: AnalysedTransition list) (elem: AnalysedTransition list): AnalysedTransition list =
-        acc @ elem
-
     let save json =
         let fileName = String.Format ("{0}.markovmodel.json", sourceFilePath)
         File.WriteAllText (fileName, json)
@@ -16,11 +11,7 @@ let createModel (sourceFilePath: string): unit =
 
     printfn "Creating model from %s ..." sourceFilePath
     File.ReadLines sourceFilePath
-        |> Seq.map Sentence.parse
-        |> Seq.map Analyser.toTransitions
-        |> List.ofSeq
-        |> List.fold concatTransitions List.empty<AnalysedTransition>
-        |> Analyser.toMarkovChain
+        |> MarkovChainService.createModel
         |> MarkovChainFileRepository.toJson
         |> save
     ()

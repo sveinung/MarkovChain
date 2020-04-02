@@ -2,7 +2,20 @@ module Domain.MarkovChainService
 
 open System
 
+open Domain.Analysis
+open Domain.Analysis.Analyser
 open Domain.MarkovChain
+
+let createModel (text: seq<string>): MarkovChain =
+    let concatTransitions (acc: AnalysedTransition list) (elem: AnalysedTransition list): AnalysedTransition list =
+        acc @ elem
+
+    text
+        |> Seq.map Sentence.parse
+        |> Seq.map Analyser.toTransitions
+        |> List.ofSeq
+        |> List.fold concatTransitions List.empty<AnalysedTransition>
+        |> Analyser.toMarkovChain
 
 let nextState (transitions: Transition list, randomValue: double): EndStateValue =
     let rec nextStateHelper (transitions: Transition list, randomValue: double, startOfInterval: double): EndStateValue =
