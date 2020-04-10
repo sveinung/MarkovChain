@@ -30,23 +30,28 @@ let nextState (transitions: Transition list, randomValue: double): EndStateValue
                 nextStateHelper (tail, randomValue, endOfInterval)
     nextStateHelper (transitions, randomValue, 0.0)
 
-let rec generateHelper(chain: MarkovChain, randomNumbers: double list, currentState: State): string list =
-    match randomNumbers with
-    | [] -> []
-    | head :: [] ->
-        let next: EndStateValue = nextState (currentState.transitions, head)
+let rec generateSentences (chain: MarkovChain, randomNumber: unit -> double, times: int, currentState: State): string list =
+    let rec generateSentence (currentState: State) =
+        let number: double = randomNumber ()
+        let next: EndStateValue = nextState (currentState.transitions, number)
         match next with
-        | End -> []
-        | State value -> [value]
-    | head :: tail ->
-        let next: EndStateValue = nextState (currentState.transitions, head)
-        match next with
-        | End -> []
+        | End ->
+            Console.WriteLine ()
+            []
         | State value ->
-            value :: generateHelper (chain, tail, chain.Item (StartStateValue.State value))
+            value :: generateSentence (chain.Item (StartStateValue.State value))
+
+    if times = 0 then
+        []
+    else
+        let startState = chain.Item Start
+        generateSentence (startState) @ generateSentences (chain, randomNumber, times - 1, startState)
 
 let public generate (times: int) (chain: MarkovChain): string list =
     let random = new Random()
-    let randomNumbers: List<double> = [ for _ in 1..times -> double (random.Next(0, 100)) / 100.0 ]
     let startState = chain.Item Start
-    generateHelper (chain, randomNumbers, startState)
+
+    let randomNumber () =
+        double (random.Next(0, 100)) / 100.0
+
+    generateSentences (chain, randomNumber, times, startState)
