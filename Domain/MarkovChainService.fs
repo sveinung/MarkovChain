@@ -30,7 +30,7 @@ let nextState (transitions: Transition list, randomValue: double): EndStateValue
                 nextStateHelper (tail, randomValue, endOfInterval)
     nextStateHelper (transitions, randomValue, 0.0)
 
-let rec generateSentences (chain: MarkovChain, randomNumber: unit -> double, times: int, currentState: State): string list =
+let rec generateSentences (chain: MarkovChain, randomNumber: unit -> double, times: int): string list =
     let rec generateSentence (currentState: State) =
         let number: double = randomNumber ()
         let next: EndStateValue = nextState (currentState.transitions, number)
@@ -45,13 +45,12 @@ let rec generateSentences (chain: MarkovChain, randomNumber: unit -> double, tim
         []
     else
         let startState = chain.Item Start
-        generateSentence (startState) @ generateSentences (chain, randomNumber, times - 1, startState)
+        generateSentence (startState) @ generateSentences (chain, randomNumber, times - 1)
 
 let public generate (times: int) (chain: MarkovChain): string list =
     let random = new Random()
-    let startState = chain.Item Start
 
     let randomNumber () =
         double (random.Next(0, 100)) / 100.0
 
-    generateSentences (chain, randomNumber, times, startState)
+    generateSentences (chain, randomNumber, times)
