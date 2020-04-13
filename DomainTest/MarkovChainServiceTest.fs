@@ -44,13 +44,13 @@ let chain = Map.empty.Add(s0.state, s0).Add(s1.state, s1).Add(s2.state, s2)
 let Test() =
     let results = MarkovChainService.generateSentences (chain, fakeRandom [0.7; 0.6; 0.3; 0.8], 2)
 
-    Assert.That(results, Is.EquivalentTo ["1"; "2"])
+    Assert.That(results, Is.EquivalentTo [["1"]; ["2"]])
 
 [<Test>]
 let Test_2() =
     let results = MarkovChainService.generateSentences (chain, fakeRandom ([0.7; 0.3; 0.3; 0.8; 0.7; 0.3; 0.3; 0.8]), 2)
 
-    Assert.That(results, Is.EquivalentTo ["1"; "2"; "2"; "1"; "2"; "2"])
+    Assert.That(results, Is.EquivalentTo [["1"; "2"; "2"]; ["1"; "2"; "2"]])
 
 [<Test>]
 let Should_select_the_first() =

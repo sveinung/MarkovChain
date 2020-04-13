@@ -12,13 +12,14 @@ let createModel (sourceFilePath: string): unit =
     ()
 
 let generate (modelFilePath: string) (times: int): unit =
-    let printState (state: string) =
-        printf "%s " state
+    let printSentence (sentence: string list) =
+        let sentenceString = String.concat " " sentence
+        printfn "%s " sentenceString
 
     File.ReadAllText modelFilePath
         |> Mapper.fromJson
         |> MarkovChainService.generate times
-        |> List.iter printState
+        |> List.iter printSentence
     ()
 
 [<EntryPoint>]
